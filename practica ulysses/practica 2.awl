@@ -45,13 +45,13 @@ LD I1.2
 NETWORK 6 //piloto bajo
 //
 LD M0.0
-AN I1.1
+A I1.1
 = Q1.1
 
 NETWORK 7 //piloto bajo
 //
 LD M0.0
-AN I1.3
+A I1.3
 = Q1.3
 
 NETWORK 8 //Proceso 1; inicio 
@@ -111,10 +111,12 @@ LD T38
 A M0.1
 O Q0.4
 O T43
+O I0.5
 AN I0.1
 AN T39
 AN T44
 A M0.0
+AN T46
 = Q0.4
 
 NETWORK 15 //Proceso 2; inicio 
@@ -166,6 +168,7 @@ LD M0.0
 LD T39
 O T41
 O T44
+O T46
 ALD
 O Q0.6
 AN I0.1
@@ -176,6 +179,39 @@ NETWORK 23 //tiempo mezclador
 //
 LD Q0.6
 TON T45 +80
+
+NETWORK 24 //limpieza
+//
+LD M0.0
+A I0.5
+O M0.5
+AN I0.1
+AN Q0.6
+= M0.5
+
+NETWORK 25 //temporizador para el agua de limpieza; fin del ciclo 
+//
+LD M0.5
+TON T46 +120
+
+NETWORK 26 //salida del agua 
+//
+LD M0.0
+A T45
+O Q0.5
+AN I0.1
+A I1.5
+= Q0.5
+
+NETWORK 27 //luces piloto del deposito de mezcla; Nivel altp
+//
+LD I1.4
+= Q1.4
+
+NETWORK 28 //Nivel bajo
+//
+LD I1.5
+= Q1.5
 
 END_ORGANIZATION_BLOCK
 
