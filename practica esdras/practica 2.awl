@@ -1,0 +1,282 @@
+ORGANIZATION_BLOCK PRINCIPAL:OB1
+TITLE= 
+//COMENTARIOS DEL PROGRAMA
+//Pulse F1 para obtener Ayuda y un programa de ejemplo.
+// 
+
+BEGIN
+NETWORK 1 //TÍTULO DE SEGMENTO (una línea)
+// 
+//COMENTARIOS DE SEGMENTO
+// 
+LD I0.0
+O M0.0
+AN I0.1
+= M0.0
+= Q2.4
+
+NETWORK 2 //llenado de componente A
+//
+LDN I1.1
+A M0.0
+O Q0.0
+AN I0.0
+AN I1.0
+= Q0.0
+
+NETWORK 3 //Piloto que indica que el componente A está completo
+//
+LD I1.0
+= Q1.0
+
+NETWORK 4 //Llenado de componente B
+//
+LDN I1.3
+A M0.0
+O Q0.1
+AN I0.1
+AN I1.2
+= Q0.1
+
+NETWORK 5 //Piloto que indica que el componente B está completo
+//
+LD I1.2
+= Q1.2
+
+NETWORK 6 //piloto bajo
+//
+LD M0.0
+A I1.1
+= Q1.1
+
+NETWORK 7 //piloto bajo
+//
+LD M0.0
+A I1.3
+= Q1.3
+
+NETWORK 8 //Proceso 1; inicio 
+//
+LD M0.0
+A I0.2
+O M0.1
+AN I0.1
+AN M0.2
+AN Q0.6
+AN M0.1
+AN T39
+= M0.1
+= Q2.0
+
+NETWORK 9 //tiempo componente A
+//
+LD M0.1
+TON T37 +20
+
+NETWORK 10 //tiempo componente A
+//
+LD T37
+TON T38 +70
+
+NETWORK 11 //tiempo agua; Final del proceso 1
+//
+LD T38
+TON T39 +20
+
+NETWORK 12 //Valvula A
+//
+LD M0.1
+O Q0.2
+LDN M0.1
+AN M0.3
+A I0.3
+OLD
+LDN M0.2
+AN M0.3
+A I0.4
+OLD
+AN I0.0
+AN T37
+AN T40
+AN T42
+A M0.0
+= Q0.2
+
+NETWORK 13 //Valvula B
+//
+LD T37
+A M0.1
+O Q0.3
+O T40
+O T42
+AN I0.1
+AN T38
+AN T41
+AN T43
+A M0.0
+= Q0.3
+
+NETWORK 14 //agua
+//
+LD T38
+A M0.1
+O Q0.4
+O T43
+LD I0.5
+AN M0.1
+AN M0.2
+AN M0.3
+AN M0.5
+OLD
+AN I0.1
+AN T39
+AN T44
+A M0.0
+AN T46
+= Q0.4
+
+NETWORK 15 //Proceso 2; inicio 
+//
+LD M0.0
+A I0.3
+AN M0.3
+AN Q0.6
+AN M0.1
+O M0.2
+AN I0.1
+AN T41
+= M0.2
+= Q2.1
+
+NETWORK 16 //temporizador Valvula A
+//
+LD M0.2
+TON T40 +50
+
+NETWORK 17 //Temporizador valvula B; final proceso 2
+//
+LD T40
+TON T41 +20
+
+NETWORK 18 //proceso 3; inicio
+//
+LD M0.0
+A I0.4
+AN M0.1
+AN Q0.6
+AN M0.2
+O M0.3
+AN I0.1
+AN T44
+= M0.3
+= Q2.2
+
+NETWORK 19 //valvula A
+//
+LD M0.3
+TON T42 +50
+
+NETWORK 20 //valvula B
+//
+LD T42
+TON T43 +50
+
+NETWORK 21 //valvula Agua
+//
+LD T43
+TON T44 +30
+
+NETWORK 22 //mezclador 
+//
+LD M0.0
+LD T39
+O T41
+O T44
+O T46
+ALD
+O Q0.6
+AN I0.1
+AN T45
+= Q0.6
+
+NETWORK 23 //tiempo mezclador
+//
+LD Q0.6
+TON T45 +80
+
+NETWORK 24 //limpieza
+//
+LD M0.0
+A I0.5
+O M0.5
+AN I0.1
+AN M0.1
+AN M0.2
+AN M0.3
+AN Q0.6
+= M0.5
+= Q2.3
+
+NETWORK 25 //temporizador para el agua de limpieza; fin del ciclo 
+//
+LD M0.5
+TON T46 +120
+
+NETWORK 26 //salida del agua 
+//
+LD M0.0
+A T45
+O Q0.5
+AN I0.1
+A I1.5
+= Q0.5
+
+NETWORK 27 //luces piloto del deposito de mezcla; Nivel altp
+//
+LD I1.4
+= Q1.4
+
+NETWORK 28 //Nivel bajo
+//
+LD I1.5
+= Q1.5
+
+NETWORK 29 //piloto rojo 
+//
+LDN M0.0
+AN M0.1
+AN M0.2
+AN M0.3
+AN M0.5
+= Q2.5
+
+END_ORGANIZATION_BLOCK
+
+SUBROUTINE_BLOCK SBR_0:SBR0
+TITLE= 
+//COMENTARIOS DE SUBRUTINA(S)
+//Pulse F1 para obtener Ayuda y un programa de ejemplo.
+// 
+
+BEGIN
+NETWORK 1 //TÍTULO DE SEGMENTO (una línea)
+// 
+//COMENTARIOS DE SEGMENTO
+// 
+
+END_SUBROUTINE_BLOCK
+
+INTERRUPT_BLOCK INT_0:INT0
+TITLE= 
+//COMENTARIOS DE RUTINA(S) DE INTERRUPCIÓN
+//Pulse F1 para obtener Ayuda y un programa de ejemplo.
+// 
+
+BEGIN
+NETWORK 1 //TÍTULO DE SEGMENTO (una línea)
+// 
+//COMENTARIOS DE SEGMENTO
+// 
+
+END_INTERRUPT_BLOCK
+
